@@ -52,6 +52,9 @@ public class InformationEstimator implements InformationEstimatorInterface {
 	public double estimation() {
 		boolean[] partition = new boolean[myTarget.length + 1];
 		int np;
+		if (myTarget == null || myTarget.length == 0) {
+			return 0.0;
+		}
 		np = 1 << (myTarget.length - 1);
 		// System.out.println("np="+np+" length="+myTarget.length);
 		double value = Double.MAX_VALUE; // value = mininimum of each "value1".
