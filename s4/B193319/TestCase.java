@@ -39,10 +39,6 @@ public class TestCase {
 			myObject.setSpace("Hi Ho Hi Ho".getBytes());
 			myObject.setTarget("".getBytes());
 			freq = myObject.frequency();
-			/**
-			 * It return SPACE's length, when TARGET is not set or TARGET's length is zero.
-			 * This is incorrect value.
-			 */
 			System.out.println("It return -1, when TARGET is not set or TARGET's length is zero");
 			System.out.println("> " + (freq == -1));
 			myObject.setSpace("".getBytes());
@@ -53,8 +49,8 @@ public class TestCase {
 			myObject.setSpace("Hi Ho Hi Ho".getBytes());
 			myObject.setTarget("H".getBytes());
 			freq = myObject.frequency();
-			System.out.println("Otherwise, get the frequency of TAGET in SPACE\n\"H\" in \"Hi Ho Hi Ho\" appears "
-					+ freq + " times. ");
+			System.out.print("Otherwise, get the frequency of TAGET in SPACE\n\"H\" in \"Hi Ho Hi Ho\" appears " + freq
+					+ " times. ");
 			System.out.println("> " + freq);
 
 		} catch (Exception e) {
