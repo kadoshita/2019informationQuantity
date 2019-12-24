@@ -32,6 +32,9 @@ public class Frequencer implements FrequencerInterface {
 		int targetLength = myTarget.length;
 		int spaceLength = mySpace.length;
 		int count = 0;
+		if (myTarget == null || myTarget.length == 0) {
+			return -1;
+		}
 		for (int start = 0; start < spaceLength; start++) { // Is it OK?
 			boolean abort = false;
 			for (int i = 0; i < targetLength; i++) {
