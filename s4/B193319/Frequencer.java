@@ -196,7 +196,7 @@ public class Frequencer implements FrequencerInterface {
 				return i;
 			}
 		}
-		return suffixArray.length;
+		return -1;
 	}
 
 	private int subByteEndIndex(int start, int end) {
@@ -230,7 +230,7 @@ public class Frequencer implements FrequencerInterface {
 				}
 			}
 		}
-		return suffixArray.length;
+		return -1;
 	}
 
 	// Suffix Arrayを使ったプログラムのホワイトテストは、
