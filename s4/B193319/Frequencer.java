@@ -191,9 +191,9 @@ public class Frequencer implements FrequencerInterface {
 		//
 
 		for (int i = 0; i < mySpace.length; i++) {
-			int s = suffixArray[i];
-			int r = targetCompare(s, start, end);
-			if (r == 0) {
+			int suffixArrayItem = suffixArray[i];
+			int result = targetCompare(suffixArrayItem, start, end);
+			if (result == 0) {
 				return i;
 			}
 		}
@@ -217,16 +217,16 @@ public class Frequencer implements FrequencerInterface {
 		// ここにコードを記述せよ
 		//
 
-		boolean f = false;
+		boolean targetFoundOnce = false;
 
 		for (int i = 0; i < mySpace.length; i++) {
-			int s = suffixArray[i];
-			int r = targetCompare(s, start, end);
-			if (r == 0) {
-				f = true;
+			int suffixArrayItem = suffixArray[i];
+			int result = targetCompare(suffixArrayItem, start, end);
+			if (result == 0) {
+				targetFoundOnce = true;
 			}
-			if (f) {
-				if (r != 0) {
+			if (targetFoundOnce) {
+				if (result != 0) {
 					return i - 1;
 				}
 			}
