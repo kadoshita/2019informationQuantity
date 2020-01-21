@@ -226,7 +226,7 @@ public class Frequencer implements FrequencerInterface {
 			}
 			if (f) {
 				if (r != 0) {
-					return i - 1;
+					return i;
 				}
 			}
 		}
@@ -258,10 +258,10 @@ public class Frequencer implements FrequencerInterface {
 			//
 			// **** Please write code to check subByteStartIndex, and subByteEndIndex
 			//
-			int res = frequencerObject.subByteStartIndex(0, 1);
-			System.out.println(res);
-			res = frequencerObject.subByteEndIndex(0, 1);
-			System.out.println(res);
+			// int res = frequencerObject.subByteStartIndex(0, 1);
+			// System.out.println(res);
+			// res = frequencerObject.subByteEndIndex(0, 1);
+			// System.out.println(res);
 
 			int result = frequencerObject.frequency();
 			System.out.print("Freq = " + result + " ");
