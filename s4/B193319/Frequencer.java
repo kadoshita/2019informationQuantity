@@ -159,11 +159,16 @@ public class Frequencer implements FrequencerInterface {
 		// "Ho" < "Ho " : "Ho " is not in the head of suffix "Ho"
 		// "Ho" = "H" : "H" is in the head of suffix "Ho"
 
+
+		if (mySpace.length - i < k - j) {
+			return -1;
+		}
+
 		for (int idx = 0; idx < k - j; idx++) {
-			if (i + idx < suffixArray.length - 1) {
-				if (mySpace[i + idx] < myTarget[idx]) {
+			if (i + idx < suffixArray.length) {
+				if (mySpace[i + idx] < myTarget[idx + j]) {
 					return -1;
-				} else if (mySpace[i + idx] > myTarget[idx]) {
+				} else if (mySpace[i + idx] > myTarget[idx + j]) {
 					return 1;
 				}
 			}

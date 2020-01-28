@@ -85,7 +85,6 @@ public class TestCase {
 								+ freq);
 				c++;
 			}
-			//ToDo FIX
 			myObject = new Frequencer();
 			myObject.setSpace("AAA".getBytes());
 			myObject.setTarget("A".getBytes());
@@ -94,7 +93,6 @@ public class TestCase {
 				System.out.println("frequency() for AAA, should return 3, when taget is A. But it returns " + freq);
 				c++;
 			}
-			//ToDo FIX
 			myObject = new Frequencer();
 			myObject.setSpace("AAA".getBytes());
 			myObject.setTarget("AA".getBytes());
@@ -111,7 +109,6 @@ public class TestCase {
 				System.out.println("frequency() for AAA, should return 1, when taget is AAA. But it returns " + freq);
 				c++;
 			}
-			//ToDo FIX
 			myObject = new Frequencer();
 			myObject.setSpace("AAA".getBytes());
 			myObject.setTarget("AAAA".getBytes());
