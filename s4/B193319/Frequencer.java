@@ -230,7 +230,11 @@ public class Frequencer implements FrequencerInterface {
 				}
 			}
 		}
-		return -1;
+		if (f) {
+			return mySpace.length;
+		} else {
+			return -1;
+		}
 	}
 
 	// Suffix Arrayを使ったプログラムのホワイトテストは、
