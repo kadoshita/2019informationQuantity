@@ -1,6 +1,7 @@
 package s4.B193319;
 
 import java.lang.*;
+import java.util.*;
 
 import s4.specification.*;
 
@@ -96,16 +97,14 @@ public class Frequencer implements FrequencerInterface {
 		//
 		// ここに、int suffixArrayをソートするコードを書け。
 		// 順番はsuffixCompareで定義されるものとする。
-		for (int i = 0; i < suffixArray.length - 1; i++) {
-			for (int j = suffixArray.length - 1; j > i; j--) {
-				int res = suffixCompare(suffixArray[j], suffixArray[j - 1]);
-				// System.out.println(res);
-				if (res == -1) {
-					int tmp = suffixArray[j];
-					suffixArray[j] = suffixArray[j - 1];
-					suffixArray[j - 1] = tmp;
-				}
-			}
+
+		List<Integer> suffixArrayList = new ArrayList<>();
+		for (int i : suffixArray) {
+			suffixArrayList.add(i);
+		}
+		Collections.sort(suffixArrayList, (i, j) -> suffixCompare(suffixArray[i], suffixArray[j]));
+		for (int i = 0; i < suffixArrayList.size(); i++) {
+			suffixArray[i] = suffixArrayList.get(i);
 		}
 	}
 
