@@ -65,18 +65,21 @@ public class Frequencer implements FrequencerInterface {
 		// ここにコードを記述せよ
 		//
 
-		if (i > suffixArray.length - 1) {
-			return -1;
-		} else if (j > suffixArray.length - 1) {
-			return 1;
+		for (int idx = 0; idx < mySpace.length; idx++) {
+			if (idx >= mySpace.length - i) {
+				return 1;
+			} else if (idx >= mySpace.length - j) {
+				return -1;
+			}
+
+			if (mySpace[i + idx] > mySpace[j + idx]) {
+				return 1;
+			} else if (mySpace[i + idx] < mySpace[j + idx]) {
+				return -1;
+			}
 		}
-		if (mySpace[i] > mySpace[j]) {
-			return 1;
-		} else if (mySpace[i] < mySpace[j]) {
-			return -1;
-		} else {
-			return suffixCompare(i + 1, j + 1);
-		}
+
+		return 0;
 	}
 
 	public void setSpace(byte[] space) {
@@ -95,7 +98,9 @@ public class Frequencer implements FrequencerInterface {
 		// 順番はsuffixCompareで定義されるものとする。
 		for (int i = 0; i < suffixArray.length - 1; i++) {
 			for (int j = suffixArray.length - 1; j > i; j--) {
-				if (suffixCompare(suffixArray[j], suffixArray[j - 1]) == -1) {
+				int res = suffixCompare(suffixArray[j], suffixArray[j - 1]);
+				// System.out.println(res);
+				if (res == -1) {
 					int tmp = suffixArray[j];
 					suffixArray[j] = suffixArray[j - 1];
 					suffixArray[j - 1] = tmp;
@@ -158,7 +163,6 @@ public class Frequencer implements FrequencerInterface {
 		// "Ho" = "Ho"
 		// "Ho" < "Ho " : "Ho " is not in the head of suffix "Ho"
 		// "Ho" = "H" : "H" is in the head of suffix "Ho"
-
 
 		if (mySpace.length - i < k - j) {
 			return -1;
