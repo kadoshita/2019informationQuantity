@@ -21,7 +21,7 @@ public class InformationEstimator implements InformationEstimatorInterface {
 	byte[] myTarget; // data to compute its information quantity
 	byte[] mySpace; // Sample space to compute the probability
 	FrequencerInterface myFrequencer; // Object for counting frequency
-	double[][] memo;
+	double[] memo;
 
 	byte[] subBytes(byte[] x, int start, int end) {
 		// corresponding to substring of String for byte[] ,
@@ -42,11 +42,6 @@ public class InformationEstimator implements InformationEstimatorInterface {
 
 	public void setTarget(byte[] target) {
 		myTarget = target;
-		memo = new double[target.length][2];
-		for (int i = 0; i < memo.length; i++) {
-			memo[i][0] = -1.0;
-			memo[i][1] = -1.0;
-		}
 	}
 
 	public void setSpace(byte[] space) {
@@ -56,26 +51,23 @@ public class InformationEstimator implements InformationEstimatorInterface {
 	}
 
 	public double estimation() {
-		// System.out.println("np="+np+" length="+myTarget.length);
 		double value = Double.MAX_VALUE; // value = mininimum of each "value1".
-		double value1 = 0.0;
+		memo = new double[myTarget.length];
 		for (int i = 0; i < myTarget.length; i++) {
-			myFrequencer.setTarget(subBytes(myTarget, 0, i + 1));
-			memo[i][0] = iq(myFrequencer.frequency());
-		}
-		for (int i = myTarget.length; i > 1; i--) {
-			myFrequencer.setTarget(subBytes(myTarget, i - 1, myTarget.length));
-			memo[myTarget.length - i][1] = iq(myFrequencer.frequency());
+			for (int j = 0; j < i + 1; j++) {
+				int begin = j;
+				int end = i + 1;
+				myFrequencer.setTarget(subBytes(myTarget, begin, end));
+				value = iq(myFrequencer.frequency());
+				if (j == 0) {
+					memo[i] = value;
+				} else {
+					memo[i] = Math.min(memo[i], memo[j - 1] + value);
+				}
+			}
 		}
 
-		value = memo[myTarget.length - 1][0];
-
-		for (int i = 0; i < myTarget.length - 1; i++) {
-			value1 = memo[i][0] + memo[i][1];
-			if (value1 < value)
-				value = value1;
-		}
-		return value;
+		return memo[myTarget.length - 1];
 	}
 
 	public static void main(String[] args) {
