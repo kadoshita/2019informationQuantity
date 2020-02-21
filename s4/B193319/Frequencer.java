@@ -104,14 +104,35 @@ public class Frequencer implements FrequencerInterface {
 		// ここに、int suffixArrayをソートするコードを書け。
 		// 順番はsuffixCompareで定義されるものとする。
 
-		List<Integer> suffixArrayList = new ArrayList<>();
-		for (int i : suffixArray) {
-			suffixArrayList.add(i);
+		qs(suffixArray, suffixArray.length - 1, 0);
+	}
+
+	private void qs(int arr[], int right, int left) {
+		if (left >= right) {
+			return;
 		}
-		Collections.sort(suffixArrayList, (i, j) -> suffixCompare(suffixArray[i], suffixArray[j]));
-		for (int i = 0; i < suffixArrayList.size(); i++) {
-			suffixArray[i] = suffixArrayList.get(i);
+		int piv = arr[(right + left) / 2];
+		int rig = right;
+		int lef = left;
+		int tmp;
+
+		for (; lef <= rig;) {
+			for (; suffixCompare(arr[lef], piv) == -1;) {
+				lef++;
+			}
+			for (; suffixCompare(arr[rig], piv) == 1;) {
+				rig--;
+			}
+			if (lef <= rig) {
+				tmp = arr[lef];
+				arr[lef] = arr[rig];
+				arr[rig] = tmp;
+				lef++;
+				rig--;
+			}
 		}
+		qs(arr, rig, left);
+		qs(arr, right, lef);
 	}
 
 	// Suffix Arrayを用いて、文字列の頻度を求めるコード
