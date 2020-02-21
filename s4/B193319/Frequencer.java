@@ -66,20 +66,26 @@ public class Frequencer implements FrequencerInterface {
 		// ここにコードを記述せよ
 		//
 
-		for (int idx = 0; idx < mySpace.length; idx++) {
-			if (idx >= mySpace.length - i) {
-				return 1;
-			} else if (idx >= mySpace.length - j) {
+		int k = 0;
+		for (; i + k < mySpace.length && j + k < mySpace.length;) {
+			int i_k = i + k;
+			int j_k = j + k;
+			int mySpace_i_k = (int) mySpace[i_k];
+			int mySpace_j_k = (int) mySpace[j_k];
+			if (mySpace_i_k < mySpace_j_k) {
 				return -1;
-			}
-
-			if (mySpace[i + idx] > mySpace[j + idx]) {
+			} else if (mySpace_i_k > mySpace_j_k) {
 				return 1;
-			} else if (mySpace[i + idx] < mySpace[j + idx]) {
-				return -1;
 			}
+			if ((i_k + 1) == mySpace.length && (j_k + 1) == mySpace.length) {
+				return 0;
+			} else if ((i_k + 1) == mySpace.length) {
+				return -1;
+			} else if ((j_k + 1) == mySpace.length) {
+				return 1;
+			}
+			k++;
 		}
-
 		return 0;
 	}
 
@@ -197,11 +203,27 @@ public class Frequencer implements FrequencerInterface {
 		// ここにコードを記述せよ。
 		//
 
-		for (int i = 0; i < mySpace.length; i++) {
-			int s = suffixArray[i];
-			int r = targetCompare(s, start, end);
-			if (r == 0) {
-				return i;
+		if (targetCompare(suffixArray[0], start, end) == 0) {
+			return 0;
+		}
+
+		int mid;
+		int left = 0;
+		int right = mySpace.length - 1;
+
+		for (; right >= left;) {
+			mid = (left + right) / 2;
+			int res = targetCompare(suffixArray[mid], start, end);
+			if (res == -1) {
+				left = mid + 1;
+			} else if (res == 1) {
+				right = mid - 1;
+			} else {
+				if (targetCompare(suffixArray[mid - 1], start, end) == -1) {
+					return mid;
+				} else {
+					right = mid - 1;
+				}
 			}
 		}
 		return -1;
@@ -223,26 +245,26 @@ public class Frequencer implements FrequencerInterface {
 		//
 		// ここにコードを記述せよ
 		//
+		int mid;
+		int left = 0;
+		int right = mySpace.length - 1;
 
-		boolean targetFoundOnce = false;
-
-		for (int i = 0; i < mySpace.length; i++) {
-			int suffixArrayItem = suffixArray[i];
-			int result = targetCompare(suffixArrayItem, start, end);
-			if (result == 0) {
-				targetFoundOnce = true;
-			}
-			if (targetFoundOnce) {
-				if (result != 0) {
-					return i;
+		for (; right >= left;) {
+			mid = (left + right) / 2;
+			int res = targetCompare(suffixArray[mid], start, end);
+			if (res == -1) {
+				left = mid + 1;
+			} else if (res == 1) {
+				right = mid - 1;
+			} else {
+				if (mid == mySpace.length - 1 || targetCompare(suffixArray[mid + 1], start, end) == 1) {
+					return mid + 1;
+				} else {
+					left = mid + 1;
 				}
 			}
 		}
-		if (targetFoundOnce) {
-			return mySpace.length;
-		} else {
-			return -1;
-		}
+		return -1;
 	}
 
 	// Suffix Arrayを使ったプログラムのホワイトテストは、
